@@ -1,0 +1,47 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+#    database-platform: org.hibernate.dialect.MySQL55Dialect
+    hibernate:
+
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
+      type: info
+      use-sql-comments: true
+      properties:
+        hibernate.use_sql_comments: true
+        hibernate.format_sql: true
+
+springdoc:
+  show-actuator: true
+  paths-to-match: /**
+  packages-to-scan: com.spring.jkn
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+
+logging:
+  level:
+    org.springframework: INFO
+    com.spring.jkn: INFO
+
+jwt:
+  secretKey: secret
+  issuer: ${JWT_ISSUER}
+  expirationMinute: 10
+
